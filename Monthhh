@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Heavenly Keepsake Love Letter</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100%; width: 100%;
+      background: linear-gradient(135deg, #fceabb 0%, #fb9a99 40%, #a18cd1 70%, #172a3a 100%);
+      font-family: 'Georgia', serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #fff;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: radial-gradient(circle at top center, #ffe, #a18cd1aa);
+      pointer-events: none;
+      animation: pulseLight 6s infinite alternate;
+      z-index: 0;
+      opacity: 0.4;
+    }
+    @keyframes pulseLight {
+      0% {opacity: 0.3;}
+      100% {opacity: 0.5;}
+    }
+    .container {
+      background: rgba(0, 0, 0, 0.5);
+      max-width: 700px;
+      margin: 40px auto;
+      border-radius: 25px;
+      box-shadow: 0 0 40px 10px rgba(255, 192, 203, 0.6);
+      padding: 50px 40px;
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+    h1 {
+      font-size: 3.4em; 
+      margin-bottom: 15px;
+      color: #f9c5d1;
+      text-shadow: 0 0 10px #ff7fa7;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ff7fa7; }
+      to { text-shadow: 0 0 20px #ffd1dc; }
+    }
+    .hearts {
+      font-size: 3.8em;
+      color: #ff5c8a;
+      animation: beat 1.2s infinite;
+      margin-bottom: 30px;
+      user-select: none;
+    }
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+    .letter {
+      font-size: 1.5em;
+      line-height: 2.2;
+      color: #fce4ec;
+      font-style: italic;
+      text-shadow: 0 0 12px rgba(255, 182, 193, 0.8);
+      margin-bottom: 40px;
+      max-height: 400px;
+      overflow-y: auto;
+      padding-right: 12px;
+      text-align: justify;
+      border-right: 3px solid #ff98ac;
+      user-select: text;
+    }
+    .signature {
+      font-weight: 700;
+      font-size: 1.8em;
+      margin-top: 25px;
+      color: #ffd1dc;
+      letter-spacing: 1.1px;
+      text-shadow: 0 0 8px #ec407a;
+    }
+    .games-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      padding-bottom: 60px;
+    }
+    .game {
+      background: #311b3fcc;
+      border-radius: 20px;
+      padding: 22px 28px;
+      box-shadow: 0 0 20px 2px #fb7185;
+      width: 320px;
+      color: #ffe6f0;
+      font-weight: 500;
+      user-select: none;
+    }
+    .game h2 {
+      color: #ff8aad;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+      text-align: center;
+      text-shadow: 0 0 7px #ffafbd;
+      user-select: text;
+    }
+    .game p {
+      font-size: 1.14em;
+      margin-bottom: 12px;
+    }
+    .game input {
+      width: 100%;
+      padding: 10px 14px;
+      font-size: 1.1em;
+      border-radius: 12px;
+      border: 2px solid #ff7396;
+      background: #44193b;
+      color: #fff;
+      margin-bottom: 20px;
+      outline: none;
+      user-select: text;
+    }
+    .game button {
+      width: 100%;
+      padding: 10px 0;
+      font-weight: 700;
+      border-radius: 12px;
+      border: none;
+      background: #fa4a82;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      box-shadow: 0 5px 10px #ff7396;
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+    .game button:hover {
+      background: #ff7396;
+      box-shadow: 0 8px 20px #ff7396;
+    }
+    .result {
+      font-size: 1.1em;
+      font-weight: 700;
+      text-align: center;
+      margin-top: 10px;
+      min-height: 30px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="hearts">♥ ♥ ♥</div>
+    <h1>Happy 1 Month Together</h1>
+    <div class="letter" id="loveLetter">
+      My dearest love,<br><br>
+      It feels like a beautiful dream that a whole month of our journey has already blossomed into the sweetest reality. Every message exchanged, every smile shared, and the gentle warmth of your presence have grown into a tender light, illuminating the depths of my heart.<br><br>
+      Our love flows like a timeless melody, resonating stronger with every moment. I cherish every laugh, every tender word, and every silent comfort we bring to each other. You’ve painted colors of joy, hope, and boundless passion in the canvas of my life.<br><br>
+      As we celebrate this first milestone, know that you’re my forever inspiration, my heart’s closest companion, and my most treasured blessing. Here's to us, to countless more months, and a lifetime of unforgettable memories.<br><br>
+      With all the love that words can hold,<br>
+      <span class="signature">[Your Name]</span>
+    </div>
+  </div>
+
+  <div class="games-container">
+    <!-- Game 1: Love Quiz -->
+    <div class="game" id="game1">
+      <h2>Love Memory Quiz</h2>
+      <p>What was the date of our very first message? (Format: Month DD)</p>
+      <input type="text" id="answer1" placeholder="e.g. October 18" />
+      <button onclick="checkLoveQuiz()">Check Answer</button>
+      <div class="result" id="result1"></div>
+    </div>
+
+    <!-- Game 2: Heart Catcher (Simple Click Game) -->
+    <div class="game" id="game2">
+      <h2>Heart Catcher</h2>
+      <p>Catch as many hearts as you can in 15 seconds! Tap the hearts before they disappear.</p>
+      <button onclick="startHeartGame()" id="startHeartBtn">Start Game</button>
+      <div style="position:relative; height:130px; margin-top: 10px;" id="heartGround"></div>
+      <div class="result" id="result2"></div>
+    </div>
+
+    <!-- Game 3: Love Words Scramble -->
+    <div class="game" id="game3">
+      <h2>Love Words Scramble</h2>
+      <p>Unscramble this word: <strong>VOREL</strong></p>
+      <input type="text" id="answer3" placeholder="Your guess here" />
+      <button onclick="checkScramble()">Submit</button>
+      <div class="result" id="result3"></div>
+    </div>
+  </div>
+
+  <script>
+    // Game 1: Love Quiz
+    function checkLoveQuiz() {
+      const correctAnswer = 'october 18';
+      let input = document.getElementById('answer1').value.trim().toLowerCase();
+      let result = document.getElementById('result1');
+      if (input === correctAnswer) {
+        result.textContent = 'Right! You remember our special day ❤️';
+        result.style.color = '#ff9086';
+      } else {
+        result.textContent = 'Not quite, try again or share a kiss for a hint!';
+        result.style.color = '#f28ab2';
+      }
+    }
+
+    // Game 2: Heart Catcher
+    let heartTimer, heartInterval, heartsCaught = 0;
+
+    function startHeartGame() {
+      const ground = document.getElementById('heartGround');
+      const result = document.getElementById('result2');
+      heartsCaught = 0;
+      ground.innerHTML = '';
+      result.textContent = '';
+      document.getElementById('startHeartBtn').disabled = true;
+
+      function createHeart() {
+        const heart = document.createElement('div');
+        heart.textContent = '♥';
+        heart.style.position = 'absolute';
+        heart.style.fontSize = '28px';
+        heart.style.color = '#ff5c8a';
+        heart.style.userSelect = 'none';
+        // Position randomly in ground
+        heart.style.top = Math.random() * 90 + 'px';
+        heart.style.left = Math.random() * 280 + 'px';
+        heart.style.cursor = 'pointer';
+        ground.appendChild(heart);
+
+        heart.onclick = () => {
+          heartsCaught++;
+          ground.removeChild(heart);
+          result.textContent = `Hearts caught: ${heartsCaught}`;
+          result.style.color = '#ffe6f0';
+        };
+
+        setTimeout(() => {
+          if (ground.contains(heart)) {
+            ground.removeChild(heart);
+          }
+        }, 1400);
+      }
+
+      heartInterval = setInterval(createHeart, 600);
+
+      heartTimer = setTimeout(() => {
+        clearInterval(heartInterval);
+        document.getElementById('startHeartBtn').disabled = false;
+        result.textContent += ` - Game Over! You caught ${heartsCaught} hearts.`;
+        result.style.color = '#ffafbd';
+      }, 15000);
+    }
+
+    // Game 3: Love Words Scramble
+    function checkScramble() {
+      const correctWord = 'lover';
+      let input = document.getElementById('answer3').value.trim().toLowerCase();
+      let result = document.getElementById('result3');
+      if (input === correctWord) {
+        result.textContent = 'Correct! Love always wins ❤️';
+        result.style.color = '#ff8aad';
+      } else {
+        result.textContent = 'Not quite, try again!';
+        result.style.color = '#f28ab2';
+      }
+    }
+  </script>
+</body>
+</html>
