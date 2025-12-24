@@ -10,7 +10,7 @@ body {
   overflow: auto;
 }
 a {
-  color: white;
+  color: black;
   font-size: 14px;
 }
 #main {
@@ -32,7 +32,7 @@ a {
 }
 #code {
   display: none;
-  color: rgb(196, 255, 255);
+  color: rgb(0, 0, 0, 0.1);
   font-size: 16px;
   margin-top: 70px;
   line-height: 25px;
