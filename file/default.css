@@ -84,3 +84,36 @@ a {
   font-family: monospace;
 
 }
+
+/* Mobile Optimization */
+@media screen and (max-width: 768px) {
+  #wrap {
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+  }
+  
+  #text {
+    width: 90%;
+    left: 5% !important;
+    top: 20px !important;
+    position: relative !important;
+  }
+
+  #code {
+    font-size: 20px !important; /* Phone par text bada dikhega */
+    line-height: 35px !important;
+  }
+
+  #canvas {
+    width: 100% !important;
+    height: auto !important;
+  }
+
+  #clock-box {
+    left: 20px !important;
+    font-size: 18px !important;
+    position: relative !important;
+    top: 0 !important;
+  }
+}
