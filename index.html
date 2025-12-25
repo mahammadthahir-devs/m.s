@@ -1,167 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>HBD love</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HBD Love - Tannu</title>	    
+    <link type="text/css" rel="stylesheet" href="./file/default.css">
+    <style>
+        /* Mobile fixes */
+        body { margin: 0; padding: 0; overflow-x: hidden; background-color: #ffe; }
+        #main { width: 100%; height: 100vh; position: relative; }
+        #wrap { position: relative; margin: 0 auto; width: 100%; max-width: 1100px; }
+        
+        /* Text ko mobile me readable banane ke liye */
+        #text {
+            position: relative;
+            z-index: 10;
+            padding: 20px;
+            font-size: 18px;
+            width: 90% !important;
+            margin: 0 auto;
+        }
+        
+        #code { display: none; font-family: 'Courier New', Courier, monospace; color: #ff4d6d; }
+        .say { display: block; margin-bottom: 8px; line-height: 1.5; }
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        /* Canvas ko responsive banana */
+        canvas {
+            display: block;
+            max-width: 100%;
+            height: auto !important;
+            margin: 0 auto;
+        }
 
-<link rel="stylesheet" href="./file/default.css">
+        #clock-box {
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            margin-top: 10px;
+        }
 
-<script src="./file/jquery.min.js"></script>
-<script src="./file/jscex.min.js"></script>
-<script src="./file/jscex-parser.js"></script>
-<script src="./file/jscex-jit.js"></script>
-<script src="./file/jscex-builderbase.min.js"></script>
-<script src="./file/jscex-async.min.js"></script>
-<script src="./file/jscex-async-powerpack.min.js"></script>
-<script src="./file/functions.js"></script>
-<script src="./file/love.js"></script>
-
-<style>
-body{
-  margin:0;
-  overflow-x:hidden;
-}
-
-#wrap{
-  width:1100px;
-  margin:0 auto;
-}
-
-/* 👇 MOBILE AUTO ZOOM */
-.container{
-  display:flex;
-  justify-content:center;
-}
-
-.scaler{
-  transform-origin: top center;
-}
-
-/* extra text fixes */
-#text{
-  text-align:center;
-}
-</style>
-
-<script>
-function playAudio(){
-  document.getElementById("myAudio").play();
-}
-</script>
-
+        /* Birthday Celebration Floating Hearts Effect */
+        .heart {
+            position: fixed;
+            top: -10px;
+            color: #ff4d6d;
+            font-size: 20px;
+            user-select: none;
+            z-index: 1000;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+    </style>
+    
+    <script type="text/javascript" src="./file/jquery.min.js"></script>
+    <script type="text/javascript" src="./file/jscex.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-parser.js"></script>
+    <script type="text/javascript" src="./file/jscex-jit.js"></script>
+    <script type="text/javascript" src="./file/jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-async.min.js"></script>
+    <script type="text/javascript" src="./file/jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="./file/functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./file/love.js" charset="utf-8"></script>
 </head>
-
 <body>
-
-<audio autoplay id="myAudio">
-  <source src="aud.mp3" type="audio/mp3">
-</audio>
-
-<div class="container">
-  <div id="wrap" class="scaler">
-
-    <div id="text">
-      <div id="code">
-        <span class="say">Assalamalikum Mare Jaan💌</span><br>
-        <span class="say">Happy Birthday Re Shazhadi 👸</span><br>
-        <span class="say">I love you so much Tannu 💖</span><br>
-        <span class="say">Thank you for coming into my life 😊</span><br>
-      </div>
+    <div id="main">
+        <audio id="myAudio" loop>
+            <source src="aud.mp3" type="audio/mp3" />
+        </audio>
+        
+        <div id="wrap">
+            <div id="text">
+                <div id="code">
+                    <span class="say">Assalamalikum Mare Jaan💌</span>
+                    <span class="say">Happy Birthday Re shazhadi👸</span>
+                    <span class="say">I love you so much re Tannu💖</span>
+                    <span class="say">Thank you for coming into my life☺️</span>
+                    <span class="say">Always be happy, I am so sorry🙇‍♂️</span>
+                    <span class="say">Just saying... you're the prettiest person in my life❤️</span>
+                    <span class="say">Allah hamesha tujhe khush rakhe💕</span>
+                    <span class="say">Acha enjoy kar, jab bhi tu hasti hai toh bahut achi dikhti hai❤️😘</span>
+                    <span class="say">Kabhi sad mat ho, aram se padhai kar, overthink mat kar.</span>
+                    <span class="say">Meri life me sabse badh kar tu hi hai. Thank you re Tannu💞</span>
+                </div>
+            </div>
+            <div id="clock-box">
+                <span id="clock">Loading timer...</span>
+            </div>
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
 
-    <div id="clock-box" style="text-align:center;">
-      <span id="clock">577 days 0 hours 0 minutes 0 seconds</span>
-    </div>
+    <script>
+    (function() {
+        var canvas = $('#canvas');
+        var audio = document.getElementById("myAudio");
 
-    <!-- ORIGINAL SIZE — DON'T CHANGE -->
-    <canvas id="canvas" width="1100" height="680"></canvas>
+        // Canvas Responsive Setup
+        var width = $(window).width() > 1100 ? 1100 : $(window).width();
+        var height = $(window).height() * 0.7; // Screen ka 70% height
+        canvas.attr("width", width);
+        canvas.attr("height", height);
 
-  </div>
-</div>
+        // Floating Hearts Feature
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerHTML = '❤️';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
 
-<script>
-(function () {
+        function playAudio() {
+            audio.play();
+            setInterval(createHeart, 500); // Start falling hearts
+        }
 
-  // 👇 AUTO SCALE (NO DISTORT)
-  function scaleSite(){
-    var ww = window.innerWidth;
-    var base = 1100;
-    var scale = ww / base;
+        var opts = {
+            seed: { x: width / 2, color: "rgb(190, 26, 37)", scale: 2 },
+            branch: [ [535, 680, 570, 250, 500, 200, 30, 100, [ [540, 500, 455, 417, 340, 400, 13, 100, [ [450, 435, 434, 430, 394, 395, 2, 40] ] ], [550, 445, 600, 356, 680, 345, 12, 100, [ [578, 400, 648, 409, 661, 426, 3, 80] ] ], [539, 281, 537, 248, 534, 217, 3, 40], [546, 397, 413, 247, 328, 244, 9, 80, [ [427, 286, 383, 253, 371, 205, 2, 40], [498, 345, 435, 315, 395, 330, 4, 60] ] ], [546, 357, 608, 252, 678, 221, 6, 100, [ [590, 293, 646, 277, 648, 271, 2, 80] ] ] ] ] ],
+            bloom: { num: 700, width: 1080, height: 650 },
+            footer: { width: 1200, height: 5, speed: 10 }
+        };
 
-    if(scale > 1) scale = 1;   // desktop me normal
-    document.querySelector(".scaler").style.transform =
-      "scale(" + scale + ")";
-  }
+        var tree = new Tree(canvas[0], width, height, opts);
+        var seed = tree.seed;
+        var foot = tree.footer;
+        var hold = 1;
 
-  scaleSite();
-  window.onresize = scaleSite;
+        canvas.on("click touchstart", function(e) {
+            playAudio();
+            var offset = canvas.offset(), x, y;
+            var ev = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+            x = ev.pageX - offset.left;
+            y = ev.pageY - offset.top;
+            if (seed.hover(x, y)) {
+                hold = 0; 
+                canvas.unbind("click touchstart");
+                canvas.removeClass('hand');
+            }
+        });
 
-  var canvas = $('#canvas');
+        var seedAnimate = eval(Jscex.compile("async", function () {
+            seed.draw();
+            while (hold) { $await(Jscex.Async.sleep(10)); }
+            while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
+            while (seed.canMove()) { seed.move(0, 2); foot.draw(); $await(Jscex.Async.sleep(10)); }
+        }));
 
-  if (!canvas[0].getContext) return;
+        var growAnimate = eval(Jscex.compile("async", function () {
+            do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow());
+        }));
 
-  var width = canvas.width();
-  var height = canvas.height();
+        var flowAnimate = eval(Jscex.compile("async", function () {
+            do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower());
+        }));
 
-  var tree = new Tree(canvas[0], width, height, {
-    seed:{ x: width/2 - 20, color:"rgb(190,26,37)", scale:2 },
-    branch: BRANCHES,           // <-- functions.js ke andar hi hai
-    bloom:{ num:700, width:1080, height:650 },
-    footer:{ width:1200, height:5, speed:10 }
-  });
+        var moveAnimate = eval(Jscex.compile("async", function () {
+            tree.snapshot("p1", 240, 0, 610, 680);
+            while (tree.move("p1", 500, 0)) { foot.draw(); $await(Jscex.Async.sleep(10)); }
+            foot.draw();
+            tree.snapshot("p2", 500, 0, 610, 680);
+            canvas.css("background", "#ffe");
+            $await(Jscex.Async.sleep(300));
+            canvas.css("background", "none");
+        }));
 
-  var seed = tree.seed;
-  var foot = tree.footer;
-  var hold = 1;
+        var textAnimate = eval(Jscex.compile("async", function () {
+            $("#code").show().typewriter();
+        }));
+	    
+        var runAsync = eval(Jscex.compile("async", function () {
+            $await(seedAnimate());
+            $await(growAnimate());
+            $await(flowAnimate());
+            $await(moveAnimate());
+            textAnimate().start();
+        }));
 
-  canvas.click(function(e){
-    playAudio();
-    var offset = canvas.offset();
-    var x = e.pageX - offset.left;
-    var y = e.pageY - offset.top;
-
-    if (seed.hover(x,y)){
-      hold = 0;
-      canvas.unbind("click").unbind("mousemove").removeClass("hand");
-    }
-  }).mousemove(function(e){
-    var offset = canvas.offset();
-    var x = e.pageX - offset.left;
-    var y = e.pageY - offset.top;
-    canvas.toggleClass("hand", seed.hover(x,y));
-  });
-
-  var seedAnimate = eval(Jscex.compile("async", function () {
-    seed.draw();
-    while (hold) { $await(Jscex.Async.sleep(10)); }
-    while (seed.canScale()) { seed.scale(0.95); $await(Jscex.Async.sleep(10)); }
-    while (seed.canMove()) { seed.move(0,2); foot.draw(); $await(Jscex.Async.sleep(10)); }
-  }));
-
-  var growAnimate = eval(Jscex.compile("async", function () {
-    do { tree.grow(); $await(Jscex.Async.sleep(10)); } while (tree.canGrow());
-  }));
-
-  var flowAnimate = eval(Jscex.compile("async", function () {
-    do { tree.flower(2); $await(Jscex.Async.sleep(10)); } while (tree.canFlower());
-  }));
-
-  var textAnimate = eval(Jscex.compile("async", function () {
-    $("#code").show().typewriter();
-  }));
-
-  var runAsync = eval(Jscex.compile("async", function () {
-    $await(seedAnimate());
-    $await(growAnimate());
-    $await(flowAnimate());
-    textAnimate().start();
-  }));
-
-  runAsync().start();
-})();
-</script>
-
+        runAsync().start();
+    })();
+    </script>
 </body>
 </html>
